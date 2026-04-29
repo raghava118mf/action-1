@@ -1,6 +1,9 @@
 name: Local Docker Build and Run Demo
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch: {}
 
 env:
