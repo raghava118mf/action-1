@@ -1,0 +1,52 @@
+name: Upload and Download Artifacts Job
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
+
+jobs:
+  upload-job:
+    name: Upload Job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create files to upload
+        run: |
+          echo "File 1 content" > file1.txt
+          echo "File 2 content" > file2.txt
+          echo "File 3 content" > file3.txt
+          echo "Files created:"
+          ls -la *.txt
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-files
+          path: |
+            file1.txt
+            file2.txt
+            file3.txt
+
+  download-job:
+    name: Download Job
+    runs-on: ubuntu-latest
+    needs: upload-job
+    steps:
+      - name: Download artifacts from upload-job
+        uses: actions/download-artifact@v4
+        with:
+          name: my-files
+
+      - name: Display downloaded files
+        run: |
+          echo "Files downloaded:"
+          ls -la
+          echo ""
+          echo "File contents:"
+          cat file1.txt
+          cat file2.txt
+          cat file3.txt
