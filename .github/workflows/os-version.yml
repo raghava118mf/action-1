@@ -1,0 +1,27 @@
+name: OS Version Workflow
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
+
+jobs:
+  os-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Print OS version details
+        run: |
+          echo "=== uname -a ==="
+          uname -a
+          echo "\n=== /etc/os-release ==="
+          cat /etc/os-release
+          echo "\n=== lsb_release (if available) ==="
+          if command -v lsb_release >/dev/null 2>&1; then
+            lsb_release -a
+          else
+            echo "lsb_release not installed"
+          fi
