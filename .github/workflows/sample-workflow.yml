@@ -10,17 +10,33 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  build:
+  say-hello:
+    name: Say hello
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Run a sample shell command
+      - name: Print a friendly message
         run: |
-          echo "Hello from the sample workflow!"
-          echo "Current branch: ${{ github.ref }}"
+          echo "Hello! This is job #1."
+          echo "GitHub Actions is like a robot that runs tasks for you."
 
+  show-branch:
+    name: Show branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print branch name
+        run: |
+          echo "Hello! This is job #2."
+          echo "The branch is: ${{ github.ref }}"
+
+  list-files:
+    name: List files
+    runs-on: ubuntu-latest
+    steps:
       - name: List repository files
         run: |
+          echo "Hello! This is job #3."
+          echo "These are the files in the repository:"
           ls -la
