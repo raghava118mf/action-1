@@ -1,0 +1,25 @@
+name: Sample Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run a sample shell command
+        run: |
+          echo "Hello from the sample workflow!"
+          echo "Current branch: ${{ github.ref }}"
+
+      - name: List repository files
+        run: |
+          ls -la
